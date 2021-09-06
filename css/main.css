@@ -50,7 +50,7 @@ a {
 .scroll-section {
   padding-top: 50vh;
 }
-#srcoll-section-0 h1 {
+#scroll-section-0 h1 {
   font-size: 4rem;
   text-align: center;
 }
@@ -72,7 +72,7 @@ a {
   font-size: 1.2rem;
   margin-bottom: 0.5em;
 }
-#srcoll-section-2 .main-message {
+#scroll-section-2 .main-message {
   font-size: 3.5rem;
 }
 .description {
@@ -122,9 +122,22 @@ a {
   color: white;
   background: darkorange;
 }
+.sticky-elem {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+#show-scene-0 #scroll-section-0 .sticky-elem,
+#show-scene-1 #scroll-section-1 .sticky-elem,
+#show-scene-2 #scroll-section-2 .sticky-elem,
+#show-scene-3 #scroll-section-3 .sticky-elem {
+  display: block;
+}
 
 @media (min-width: 1024px) {
-  #srcoll-section-0 h1 {
+  #scroll-section-0 h1 {
     font-size: 9vw;
   }
   .main-message {
@@ -136,7 +149,7 @@ a {
   .description strong {
     font-size: 6rem;
   }
-  #srcoll-section-2 .main-message {
+  #scroll-section-2 .main-message {
     font-size: 6vw;
   }
   .main-message small {
