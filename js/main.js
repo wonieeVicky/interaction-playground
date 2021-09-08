@@ -13,6 +13,13 @@
       scrollHeight: 0, // 디바이스별 스크린 높이 설정 - 별도 함수로 처리
       objs: {
         container: document.querySelector("#scroll-section-0"),
+        messageA: document.querySelector("#scroll-section-0 .main-message.a"),
+        messageB: document.querySelector("#scroll-section-0 .main-message.b"),
+        messageC: document.querySelector("#scroll-section-0 .main-message.c"),
+        messageD: document.querySelector("#scroll-section-0 .main-message.d"),
+      },
+      values: {
+        messageA_opacity: [0, 1],
       },
     },
     {
@@ -63,6 +70,23 @@
     document.body.setAttribute("id", `show-scene-${currentScene}`);
   }
 
+  function playAnimation() {
+    switch (currentScene) {
+      case 0:
+        // console.log(0);
+        break;
+      case 1:
+        // console.log(1);
+        break;
+      case 2:
+        // console.log(2);
+        break;
+      case 3:
+        // console.log(3);
+        break;
+    }
+  }
+
   function scrollLoop() {
     prevScrollHeight = 0;
     for (let i = 0; i < currentScene; i++) {
@@ -77,6 +101,7 @@
       currentScene--;
       document.body.setAttribute("id", `show-scene-${currentScene}`);
     }
+    playAnimation();
   }
 
   window.addEventListener("load", setLayout); // option: DOMContentLoaded: 돔 구조 로드 시 실행
