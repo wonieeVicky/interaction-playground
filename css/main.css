@@ -57,6 +57,7 @@ a {
 
 .scroll-section {
   padding-top: 50vh;
+  border: 5px solid #f90;
 }
 #scroll-section-0 h1 {
   font-size: 4rem;
@@ -69,6 +70,7 @@ a {
   margin-bottom: 5px 0;
   height: 3em;
   font-size: 2.5rem;
+  opacity: 0;
 }
 .main-message p {
   line-height: 1.2;

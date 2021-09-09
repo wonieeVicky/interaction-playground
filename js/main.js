@@ -72,18 +72,24 @@
 
   function calcValues(values, currentYOffset) {
     // 각 구간별 스크롤 위치에 따른 opacity array를 연산
+    let rv;
+    let scrollRatio = currentYOffset / sceneInfo[currentScene].scrollHeight; // 현재 스크롤섹션에서 스크롤된 범위를 비율로 구하기
+    rv = scrollRatio * (values[1] - values[0] + values[0]);
+
+    return rv;
   }
 
   function playAnimation() {
     const objs = sceneInfo[currentScene].objs;
     const values = sceneInfo[currentScene].values;
-    const currentYOffset = yOffset - prevScrollHeight;
+    const currentYOffset = yOffset - prevScrollHeight; // 섹션별 현재 위치
 
     switch (currentScene) {
       case 0:
         // console.log(0);
-        let messageA_opacity_0 = values.messageA_opacity[0]; // start
-        let messageA_opacity_1 = values.messageA_opacity[1]; // end
+        let messageA_opacity_in = calcValues(values.messageA_opacity, currentYOffset);
+        objs.messageA.style.opacity = messageA_opacity_in;
+        // let messageA_opacity_in = calcValues(values.messageA_opacity, currentYOffset)
         break;
       case 1:
         // console.log(1);
