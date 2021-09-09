@@ -70,10 +70,20 @@
     document.body.setAttribute("id", `show-scene-${currentScene}`);
   }
 
+  function calcValues(values, currentYOffset) {
+    // 각 구간별 스크롤 위치에 따른 opacity array를 연산
+  }
+
   function playAnimation() {
+    const objs = sceneInfo[currentScene].objs;
+    const values = sceneInfo[currentScene].values;
+    const currentYOffset = yOffset - prevScrollHeight;
+
     switch (currentScene) {
       case 0:
         // console.log(0);
+        let messageA_opacity_0 = values.messageA_opacity[0]; // start
+        let messageA_opacity_1 = values.messageA_opacity[1]; // end
         break;
       case 1:
         // console.log(1);
