@@ -20,8 +20,12 @@
         messageD: document.querySelector("#scroll-section-0 .main-message.d"),
       },
       values: {
-        messageA_opacity: [0, 1, { start: 0.1, end: 0.2 }],
-        messageB_opacity: [0, 1, { start: 0.3, end: 0.4 }],
+        messageA_opacity_in: [0, 1, { start: 0.1, end: 0.2 }],
+        messageA_opacity_out: [1, 0, { start: 0.25, end: 0.3 }],
+        messageA_translateY_in: [20, 0, { start: 0.1, end: 0.2 }],
+        messageA_translateY_out: [0, -20, { start: 0.25, end: 0.3 }],
+        messageB_opacity_in: [0, 1, { start: 0.3, end: 0.4 }],
+        messageB_opacity_out: [1, 0, { start: 0.45, end: 0.5 }],
       },
     },
     {
@@ -85,7 +89,7 @@
       const partScrollHeight = partScrollEnd - partScrollStart;
 
       if (currentYOffset >= partScrollStart && currentYOffset <= partScrollEnd) {
-        rv = ((currentYOffset - partScrollStart) / partScrollHeight) * (values[1] - values[0] + values[0]);
+        rv = ((currentYOffset - partScrollStart) / partScrollHeight) * (values[1] - values[0]) + values[0];
       } else if (currentYOffset < partScrollStart) {
         rv = values[0];
       } else if (currentYOffset > partScrollEnd) {
@@ -102,13 +106,26 @@
     const objs = sceneInfo[currentScene].objs;
     const values = sceneInfo[currentScene].values;
     const currentYOffset = yOffset - prevScrollHeight; // 섹션별 현재 위치
+    const scrollHeight = sceneInfo[currentScene].scrollHeight;
+    const scrollRatio = currentYOffset / scrollHeight; // 현재 섹션의 scrollHeight
 
     switch (currentScene) {
       case 0:
         // console.log(0);
-        let messageA_opacity_in = calcValues(values.messageA_opacity, currentYOffset);
-        objs.messageA.style.opacity = messageA_opacity_in;
-        // let messageA_opacity_in = calcValues(values.messageA_opacity, currentYOffset)
+        const messageA_opacity_in = calcValues(values.messageA_opacity_in, currentYOffset);
+        const messageA_opacity_out = calcValues(values.messageA_opacity_out, currentYOffset);
+        const messageA_translateY_in = calcValues(values.messageA_translateY_in, currentYOffset);
+        const messageA_translateY_out = calcValues(values.messageA_translateY_out, currentYOffset);
+        if (scrollRatio <= 0.22) {
+          // in
+          objs.messageA.style.opacity = messageA_opacity_in;
+          objs.messageA.style.transform = `translateY(${messageA_translateY_in}%)`;
+        } else {
+          // out
+          objs.messageA.style.opacity = messageA_opacity_out;
+          objs.messageA.style.transform = `translateY(${messageA_translateY_out}%)`;
+        }
+
         break;
       case 1:
         // console.log(1);
