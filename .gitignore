@@ -1,6 +1,8 @@
 ﻿@ipad-stroke-effect
 @simple-version
-videotest
+videotest/02-*.html
+videotest/03-*.html
+videotest/smoothscroll.html
 video
 index-imgload.html
 index1.html
