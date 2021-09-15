@@ -129,6 +129,8 @@
       }
     }
     document.body.setAttribute("id", `show-scene-${currentScene}`);
+    const heightRatio = window.innerHeight / 1080; // canvas 원래 크기 대비 현재 디바이스 height의 비율
+    sceneInfo[0].objs.canvas.style.transform = `translate3d(-50%, -50%, 0) scale(${heightRatio})`;
   }
 
   function calcValues(values, currentYOffset) {
