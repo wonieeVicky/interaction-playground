@@ -367,6 +367,7 @@
         break;
       case 3:
         // console.log(3);
+        let step = 0;
         // 가로/세로 모두 꽉 차게 하기 위해 계산이 필요하므로 여기서 세팅
         const widthRatio = window.innerWidth / objs.canvas.width; // 가로 비율
         const heightRatio = window.innerHeight / objs.canvas.height; // 세로 비율
@@ -388,7 +389,7 @@
 
         if (!values.rectStartY) {
           // values.rectStartY = objs.canvas.getBoundingClientRect().top;
-          // 스크롤에 상관없이 동일한 값을 얻을 수 있음(getBoundingClientRect를 쓰지않는 이유)
+          // getBoundingClientRect를 쓰지않는 이유 ? 스크롤에 상관없이 동일한 값을 얻을 수 있음
           // objs.canvas.offsetTop만 보면 obj.canvas.height가 변경되기 전의 값을 가져오므로 아래와 같이 수정해야 한다.
           values.rectStartY = objs.canvas.offsetTop + (objs.canvas.height - objs.canvas.height * canvasScaleRatio) / 2;
           values.rect1X[2].start = window.innerHeight / 2 / scrollHeight;
@@ -418,6 +419,18 @@
           parseInt(whiteRectWidth),
           objs.canvas.height
         );
+
+        if (scrollRatio < values.rect1X[2].end) {
+          step = 1;
+          // console.log("캔버스 닿기 전");
+          objs.canvas.classList.remove("sticky");
+          objs.canvas.style.top = `${-(objs.canvas.height - objs.canvas.height * canvasScaleRatio) / 2}px`;
+        } else {
+          step = 2;
+          // console.log("캔버스 닿은 후");
+          // 이미지 블렌드
+          objs.canvas.classList.add("sticky");
+        }
 
         break;
     }
