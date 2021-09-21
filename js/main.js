@@ -333,6 +333,37 @@
           objs.pinC.style.transform = `scaleY(${calcValues(values.pinC_scaleY, currentYOffset)})`;
         }
 
+        // currentScene 3에서 쓰는 캔버스를 미리 그려주기 시작 - const, let은 중괄호로 스코프를 가지므로 변수를 바꿔줄 필요가 없음
+        if (scrollRatio > 0.9) {
+          const { objs, values } = sceneInfo[3];
+          const widthRatio = window.innerWidth / objs.canvas.width; // 가로 비율
+          const heightRatio = window.innerHeight / objs.canvas.height; // 세로 비율
+          let canvasScaleRatio;
+          if (widthRatio <= heightRatio) {
+            // 캔버스보다 브라우저 창이 홀쭉한 경우
+            canvasScaleRatio = heightRatio;
+          } else {
+            // 캔버스보다 브라우저 창이 납작한 경우
+            canvasScaleRatio = widthRatio;
+          }
+          objs.canvas.style.transform = `scale(${canvasScaleRatio})`;
+          objs.context.fillStyle = "white";
+          objs.context.drawImage(objs.images[0], 0, 0);
+
+          // 캔버스 사이즈에 맞춰 가정한 innerWidth
+          const recalculatedInnerWidth = document.body.offsetWidth / canvasScaleRatio;
+
+          const whiteRectWidth = recalculatedInnerWidth * 0.15;
+          values.rect1X[0] = (objs.canvas.width - recalculatedInnerWidth) / 2; // 초기 값
+          values.rect1X[1] = values.rect1X[0] - whiteRectWidth; // 최종 값
+          values.rect2X[0] = values.rect1X[0] + recalculatedInnerWidth - whiteRectWidth; // 초기 값
+          values.rect2X[1] = values.rect2X[0] + whiteRectWidth; // 최종 값
+
+          // 좌우 흰색 박스 그리기
+          objs.context.fillRect(parseInt(values.rect1X[0]), 0, parseInt(whiteRectWidth), objs.canvas.height);
+          objs.context.fillRect(parseInt(values.rect2X[0]), 0, parseInt(whiteRectWidth), objs.canvas.height);
+        }
+
         break;
       case 3:
         // console.log(3);
