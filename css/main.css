@@ -134,11 +134,11 @@ a {
   color: rgb(29, 29, 31);
 }
 .canvas-caption {
-  color: #888;
+  max-width: 1000px;
+  margin: -4em auto 0;
   padding: 0 1rem;
   font-size: 1.2rem;
-  max-width: 1000px;
-  margin: 0 auto;
+  color: #888;
 }
 .footer {
   display: flex;
@@ -210,6 +210,7 @@ a {
     left: 55%;
   }
   .mid-message {
+    width: 1000px;
     font-size: 4vw;
   }
   .canvas-caption {
