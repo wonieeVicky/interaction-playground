@@ -188,6 +188,7 @@ a {
     font-size: 4vw;
   }
   .description {
+    padding: 0;
     font-size: 2rem;
   }
   .description strong {
@@ -210,10 +211,12 @@ a {
     left: 55%;
   }
   .mid-message {
+    padding: 0;
     width: 1000px;
     font-size: 4vw;
   }
   .canvas-caption {
+    padding: 0;
     font-size: 2rem;
   }
 }
