@@ -369,7 +369,6 @@
         break;
       case 3:
         // console.log(3);
-        let step = 0;
         // 가로/세로 모두 꽉 차게 하기 위해 계산이 필요하므로 여기서 세팅
         const widthRatio = window.innerWidth / objs.canvas.width; // 가로 비율
         const heightRatio = window.innerHeight / objs.canvas.height; // 세로 비율
@@ -423,11 +422,9 @@
         );
 
         if (scrollRatio < values.rect1X[2].end) {
-          step = 1;
           // console.log("캔버스 닿기 전");
           objs.canvas.classList.remove("sticky");
         } else {
-          step = 2;
           // console.log("캔버스 닿은 후");
           // 이미지 블렌드
           // blendHeight: [0, 0, { start: 0, end: 0 }]
@@ -453,12 +450,18 @@
           objs.canvas.style.top = `${-(objs.canvas.height - objs.canvas.height * canvasScaleRatio) / 2}px`;
 
           if (scrollRatio > values.blendHeight[2].end) {
+            objs.canvas.style.marginTop = 0;
             values.canvas_scale[0] = canvasScaleRatio;
             values.canvas_scale[1] = document.body.offsetWidth / (1.5 * objs.canvas.width);
             values.canvas_scale[2].start = values.blendHeight[2].end;
             values.canvas_scale[2].end = values.canvas_scale[2].start + 0.2;
 
             objs.canvas.style.transform = `scale(${calcValues(values.canvas_scale, currentYOffset)})`;
+          }
+
+          if (scrollRatio > values.canvas_scale[2].end && values.canvas_scale[2].end > 0) {
+            objs.canvas.classList.remove("sticky");
+            objs.canvas.style.marginTop = `${scrollHeight * 0.4}px`;
           }
         }
 
