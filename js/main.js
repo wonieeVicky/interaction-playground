@@ -5,6 +5,10 @@
   let prevScrollHeight = 0; // 현재 스크롤 위치(yOffset)보다 이전에 위치한 스크롤 섹션들의 스크롤 높이값의 합
   let currentScene = 0; // 현재 활성화(화면에 보여지고 있는)된 씬(scroll-section)
   let enterNewScene = false; // 새로운 scene이 시작된 순간 true
+  let acc = 0.1;
+  let delayedYOffset = 0;
+  let rafId;
+  let rafState;
 
   const sceneInfo = [
     {
@@ -206,8 +210,8 @@
     switch (currentScene) {
       case 0:
         // console.log(0);
-        let sequence = Math.round(calcValues(values.imageSequence, currentYOffset)); // 스크롤에 따른 0 - 299
-        objs.context.drawImage(objs.videoImages[sequence], 0, 0);
+        // let sequence = Math.round(calcValues(values.imageSequence, currentYOffset)); // 스크롤에 따른 0 - 299
+        // objs.context.drawImage(objs.videoImages[sequence], 0, 0);
         objs.canvas.style.opacity = calcValues(values.canvas_opacity, currentYOffset);
         if (scrollRatio <= 0.22) {
           // in
@@ -279,8 +283,8 @@
         break;
       case 2:
         // console.log(2);
-        let sequence2 = Math.round(calcValues(values.imageSequence, currentYOffset)); // 스크롤에 따른 0 - 299
-        objs.context.drawImage(objs.videoImages[sequence2], 0, 0);
+        // let sequence2 = Math.round(calcValues(values.imageSequence, currentYOffset)); // 스크롤에 따른 0 - 299
+        // objs.context.drawImage(objs.videoImages[sequence2], 0, 0);
         if (scrollRatio <= 0.5) {
           // in
           objs.canvas.style.opacity = calcValues(values.canvas_opacity_in, currentYOffset);
@@ -504,6 +508,27 @@
     playAnimation();
   }
 
+  function loop() {
+    // 속도 감속 연산 - ease-in 효과를 만들어준다. c + (d - c) * 0.1
+    delayedYOffset = delayedYOffset + (yOffset - delayedYOffset) * acc;
+
+    if (!enterNewScene && (currentScene === 0 || currentScene === 2)) {
+      const currentYOffset = delayedYOffset - prevScrollHeight; // 가속도가 적용된 delayedYOffset 적용
+      const { values, objs } = sceneInfo[currentScene];
+      let sequence = Math.round(calcValues(values.imageSequence, currentYOffset)); // 스크롤에 따른 0 - 299
+      if (objs.videoImages[sequence]) {
+        objs.context.drawImage(objs.videoImages[sequence], 0, 0);
+      }
+    }
+
+    rafId = requestAnimationFrame(loop);
+
+    if (Math.abs(yOffset - delayedYOffset) < 1) {
+      cancelAnimationFrame(rafId);
+      rafState = false;
+    }
+  }
+
   window.addEventListener("load", () => {
     setLayout();
     const { context, videoImages } = sceneInfo[0].objs;
@@ -514,5 +539,10 @@
     yOffset = window.pageYOffset;
     scrollLoop();
     checkMenu();
+
+    if (!rafState) {
+      rafId = requestAnimationFrame(loop);
+      rafState = true;
+    }
   });
 })();
