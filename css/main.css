@@ -185,6 +185,29 @@ a {
   position: fixed;
   top: 0;
 }
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: white;
+  transition: 0.5s;
+  opacity: 1;
+}
+.loading-circle {
+  width: 54px;
+  height: 54px;
+}
+.loading-circle circle {
+  stroke: black;
+  stroke-width: 4;
+  fill: none;
+}
 
 @media (min-width: 1024px) {
   #scroll-section-0 h1 {
