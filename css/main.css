@@ -199,14 +199,36 @@ a {
   transition: 0.5s;
   opacity: 1;
 }
+@keyframes loading-spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes loading-circle-ani {
+  0% {
+    stroke-dashoffset: 157;
+  }
+  75% {
+    stroke-dashoffset: -147;
+  }
+  100% {
+    stroke-dashoffset: -157;
+  }
+}
 .loading-circle {
   width: 54px;
   height: 54px;
+  animation: loading-spin 3s infinite;
 }
 .loading-circle circle {
   stroke: black;
   stroke-width: 4;
+  /* getTotalLength()로 stroke의 길이를 얻어올 수 있음 */
+  stroke-dasharray: 157;
+  stroke-dashoffset: 0;
   fill: none;
+  /* transition: 1s; */
+  animation: loading-circle-ani 1.2s infinite;
 }
 
 @media (min-width: 1024px) {
