@@ -197,6 +197,9 @@ a {
   z-index: 100;
   background-color: white;
   transition: 0.5s;
+  opacity: 0;
+}
+.before-load .loading {
   opacity: 1;
 }
 @keyframes loading-spin {

@@ -530,6 +530,7 @@
   }
 
   window.addEventListener("load", () => {
+    document.body.classList.remove("before-load");
     setLayout();
     const { context, videoImages } = sceneInfo[0].objs;
     context.drawImage(videoImages[0], 0, 0);
@@ -548,5 +549,8 @@
       rafId = requestAnimationFrame(loop);
       rafState = true;
     }
+  });
+  document.querySelector(".loading").addEventListener("trasitioend", (e) => {
+    document.body.removeChild(e.currentTarget);
   });
 })();
