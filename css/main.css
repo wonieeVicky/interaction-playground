@@ -17,6 +17,9 @@ a {
   text-decoration: none;
 }
 
+body.before-load {
+  overflow: hidden;
+}
 .global-nav {
   position: absolute;
   top: 0;

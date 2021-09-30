@@ -534,23 +534,27 @@
     setLayout();
     const { context, videoImages } = sceneInfo[0].objs;
     context.drawImage(videoImages[0], 0, 0);
-  }); // option: DOMContentLoaded: 돔 구조 로드 시 실행
-  window.addEventListener("resize", () => {
-    window.innerWidth > 600 && setLayout();
-    sceneInfo[3].values.rectStartY = 0;
-  });
-  window.addEventListener("orientationchange", setLayout); // 모바일 기기 세로, 가로 이동 감지 이벤트
-  window.addEventListener("scroll", () => {
-    yOffset = window.pageYOffset;
-    scrollLoop();
-    checkMenu();
 
-    if (!rafState) {
-      rafId = requestAnimationFrame(loop);
-      rafState = true;
-    }
-  });
-  document.querySelector(".loading").addEventListener("trasitioend", (e) => {
-    document.body.removeChild(e.currentTarget);
-  });
+    window.addEventListener("scroll", () => {
+      yOffset = window.pageYOffset;
+      scrollLoop();
+      checkMenu();
+
+      if (!rafState) {
+        rafId = requestAnimationFrame(loop);
+        rafState = true;
+      }
+    });
+
+    window.addEventListener("resize", () => {
+      window.innerWidth > 600 && setLayout();
+      sceneInfo[3].values.rectStartY = 0;
+    });
+
+    window.addEventListener("orientationchange", setLayout); // 모바일 기기 세로, 가로 이동 감지 이벤트
+
+    document.querySelector(".loading").addEventListener("trasitioend", (e) => {
+      document.body.removeChild(e.currentTarget);
+    });
+  }); // option: DOMContentLoaded: 돔 구조 로드 시 실행
 })();
