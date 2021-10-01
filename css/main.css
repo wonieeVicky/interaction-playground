@@ -20,6 +20,10 @@ a {
 body.before-load {
   overflow: hidden;
 }
+.container {
+  /* 아이폰에서 가로 스크롤 방지 */
+  overflow-x: hidden;
+}
 .global-nav {
   position: absolute;
   top: 0;
@@ -43,6 +47,9 @@ body.before-load {
   position: fixed;
   top: 0;
   background: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: saturate(180%) blur(15px); /* 아이폰 지원 backdrop-filter */
+  -moz-backdrop-filter: saturate(180%) blur(15px); /* firefox 지원 backdrop-filter */
+  -o-backdrop-filter: saturate(180%) blur(15px); /* opera 지원 backdrop-filter */
   backdrop-filter: saturate(180%) blur(15px);
 }
 .global-nav-links,
@@ -144,7 +151,7 @@ body.before-load {
 }
 .canvas-caption {
   max-width: 1000px;
-  margin: -4em auto 0;
+  margin: -24rem auto 0;
   padding: 0 1rem;
   font-size: 1.2rem;
   color: #888;
@@ -276,5 +283,6 @@ body.before-load {
   .canvas-caption {
     padding: 0;
     font-size: 2rem;
+    margin-top: -8rem;
   }
 }
