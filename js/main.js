@@ -606,22 +606,16 @@
       }
     });
 
-    window.addEventListener("resize", () => {
-      if (window.innerWidth > 900) {
-        window.location.reload();
-      }
-    });
+    window.addEventListener("resize", () => window.innerWidth > 900 && window.location.reload());
 
     window.addEventListener("orientationchange", () => {
       scrollTo(0, 0);
-      setTimeout(() => {
-        window.location.reload();
-      }, 500);
+      setTimeout(() => window.location.reload(), 500);
     });
 
-    document.querySelector(".loading").addEventListener("transitionend", (e) => {
-      document.body.removeChild(e.currentTarget);
-    });
+    document
+      .querySelector(".loading")
+      .addEventListener("transitionend", (e) => document.body.removeChild(e.currentTarget));
   });
 
   setCanvasImages();
