@@ -182,6 +182,9 @@ body.before-load {
   display: block;
   will-change: transform, opacity;
 }
+.scroll-effect-end .sticky-elem {
+  display: none !important;
+}
 .sticky-elem-canvas {
   top: 0;
   height: 100vh;
@@ -246,6 +249,10 @@ body.before-load {
   fill: none;
   /* transition: 1s; */
   animation: loading-circle-ani 1.2s infinite;
+}
+
+.normal-content {
+  margin-bottom: 10rem;
 }
 
 @media (min-width: 1024px) {
