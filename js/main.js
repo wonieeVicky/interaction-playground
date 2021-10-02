@@ -507,36 +507,21 @@
   function scrollLoop() {
     enterNewScene = false;
     prevScrollHeight = 0;
-
     for (let i = 0; i < currentScene; i++) {
       prevScrollHeight += sceneInfo[i].scrollHeight;
     }
-
-    if (delayedYOffset < prevScrollHeight + sceneInfo[currentScene].scrollHeight) {
-      document.body.classList.remove("scroll-effect-end");
-    }
-
     if (delayedYOffset > prevScrollHeight + sceneInfo[currentScene].scrollHeight) {
       enterNewScene = true;
-      if (currentScene === sceneInfo.length - 1) {
-        document.body.classList.add("scroll-effect-end");
-      }
-      if (currentScene < sceneInfo.length - 1) {
-        currentScene++;
-      }
+      currentScene++;
       document.body.setAttribute("id", `show-scene-${currentScene}`);
     }
-
     if (delayedYOffset < prevScrollHeight) {
       enterNewScene = true;
-      // 브라우저 바운스 효과로 인해 마이너스가 되는 것을 방지(모바일)
-      if (currentScene === 0) return;
+      if (currentScene === 0) return; // scroll bounce 시 마이너스 될 수 있는 가능성 제거
       currentScene--;
       document.body.setAttribute("id", `show-scene-${currentScene}`);
     }
-
     if (enterNewScene) return;
-
     playAnimation();
   }
 
