@@ -584,12 +584,11 @@
     // 중간에서 새로고침 했을 경우 자동 스크롤로 제대로 그려주기
     let tempYOffset = yOffset;
     let tempScrollCount = 0;
-    if (tempYOffset > 0) {
+    if (yOffset > 0) {
       let siId = setInterval(() => {
-        scrollTo(0, tempYOffset);
-        tempYOffset += 5;
-
-        if (tempScrollCount > 20) {
+        window.scrollTo(0, tempYOffset);
+        tempYOffset += 2;
+        if (tempScrollCount > 10) {
           clearInterval(siId);
         }
         tempScrollCount++;
